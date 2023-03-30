@@ -40,7 +40,7 @@ for index in range(len(all_tickers)):
     company_name = all_tickers[index]['Security']
     try:
         company_data = sf.get_quote_data(ticker)
-        stock_data = stock_data = sf.get_data('aapl', start_date=start, end_date=end, index_as_date=False).drop(columns=['ticker']).sort_values('date', ascending=False).reset_index(drop=True).to_dict(orient='index')
+        stock_data = stock_data = sf.get_data(ticker, start_date=start, end_date=end, index_as_date=False).drop(columns=['ticker']).sort_values('date', ascending=False).reset_index(drop=True).to_dict(orient='index')
         recent_price = getVar(stock_data, 0)
         post_assets_data = {
             'asset_id': ticker,
