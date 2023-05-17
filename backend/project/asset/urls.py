@@ -1,4 +1,5 @@
 from django.urls import path
+
 from asset.views import AssetDetailsView, AssetHistoryView, UpdateAssetDetailsView
 
 urlpatterns = [
