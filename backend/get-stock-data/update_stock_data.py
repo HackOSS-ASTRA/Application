@@ -9,7 +9,7 @@ def getVar(data, target):
     except:
         return None
 
-base_url = 'http://209.97.160.87:8000/api/'
+base_url = 'http://astra-trade.live:8000/api/'
 login_url = f'{base_url}auth/login/'
 asset_details_url = f'{base_url}assets/details/'
 asset_history_url = f'{base_url}assets/history/'
@@ -46,7 +46,7 @@ while True:
                 put_asset_data['high_price'] = getVar(getVar(updated_asset_data, 'high') , 0)
                 put_asset_data['adjusted_close_price'] = getVar(getVar(updated_asset_data, 'adjclose') , 0)
                 put_asset_data['volume'] = getVar(getVar(updated_asset_data, 'volume') , 0)
-                requests.put(url=asset_details_url + f'{put_asset_data["id"]}/', headers=headers, data=put_asset_data)
+                # requests.put(url=asset_details_url + f'{put_asset_data["id"]}/', headers=headers, data=put_asset_data)
                 post_history_data = {
                     'asset_id': put_asset_data['asset_id'],
                     'time': start_date,
@@ -57,7 +57,7 @@ while True:
                     'adjusted_close_price': getVar(getVar(updated_asset_data, 'adjclose') , 0),
                     'volume': getVar(getVar(updated_asset_data, 'volume') , 0),
                     }
-                requests.post(url=asset_history_url, data=post_history_data, headers=headers)
+                # requests.post(url=asset_history_url, data=post_history_data, headers=headers)
                 print(put_asset_data)
                 print(post_history_data)
             except:
