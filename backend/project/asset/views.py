@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from asset.serializers import AssetSerializer, AssetHistorySerializer
 from asset.models import Asset, AssetHistory
 from rest_framework.permissions import AllowAny
+from portfolio.models import PortfolioItem
 
 class AssetDetailsView(generics.ListCreateAPIView):
     queryset = Asset.objects.all()
