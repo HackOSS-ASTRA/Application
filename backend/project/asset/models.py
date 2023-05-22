@@ -16,6 +16,8 @@ class Asset(models.Model):
     adjusted_close_price = models.FloatField(validators=[MinValueValidator(0)], blank=True, null=True)
     volume = models.FloatField(validators=[MinValueValidator(0)], blank=True, null=True)
     currency = models.CharField(max_length=10, blank=True, null=True)
+    change_proportion = models.FloatField()
+    change_amount = models.FloatField()
 
     def __str__(self):
         return f'{self.asset_id} | ${self.close_price}'
@@ -28,6 +30,8 @@ class AssetHistory(TimescaleModel):
     high_price = models.FloatField(validators=[MinValueValidator(0)])
     adjusted_close_price = models.FloatField(validators=[MinValueValidator(0)], blank=True, null=True)
     volume = models.FloatField(validators=[MinValueValidator(0)])
+    change_proportion = models.FloatField()
+    change_amount = models.FloatField()
 
     def __str__(self):
         return f'{self.time} | {self.asset_id} | ${self.close_price}'

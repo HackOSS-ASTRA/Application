@@ -60,6 +60,8 @@ class UpdateAssetDetailsView(generics.UpdateAPIView):
                 asset.adjusted_close_price = data.get('adjusted_close_price')
                 asset.volume = data.get('volume')
                 asset.currency = data.get('currency')
+                asset.change_amount = data.get('change_amount')
+                asset.change_proportion = data.get('change_proportion')
                 asset.save()
                 port_items = PortfolioItem.objects.filter(asset=asset).all()
                 for port_item in port_items:
@@ -71,6 +73,7 @@ class UpdateAssetDetailsView(generics.UpdateAPIView):
                 return Response({'success': 'asset updated successfully'}, status.HTTP_200_OK)
             return Response({'error': asset_serializer.errors}, status.HTTP_200_OK)
         return Response({'error': 'you are not authorised to edit stock data'}, status.HTTP_401_UNAUTHORIZED)
+
 class AssetHistoryView(generics.ListCreateAPIView):
     queryset = AssetHistory.objects.all()
     serializer_class = AssetHistorySerializer
@@ -85,8 +88,28 @@ class AssetHistoryView(generics.ListCreateAPIView):
         return self.queryset
     def post(self, request, *args, **kwargs):
         user = self.request.user
-        print(user.is_superuser, user.is_staff)
         if user.is_superuser or user.is_staff:
             return super().post(request, *args, **kwargs)
         else:
             return Response({'error': 'you are not authorised to add new stocks'}, status.HTTP_401_UNAUTHORIZED)
+
+class MostTradedView(generics.ListAPIView):
+    queryset = Asset.objects.all()
+    serializer_class = AssetSerializer
+    def get_queryset(self):
+        self.queryset = self.queryset.order_by('-volume')
+        return self.queryset[:20]
+
+class TopRisers(generics.ListAPIView):
+    queryset = Asset.objects.all()
+    serializer_class = AssetSerializer
+    def get_queryset(self):
+        self.queryset = self.queryset.filter(change_amount__gte=0).order_by('-change_proportion')
+        return self.queryset[:20]
+
+class TopFallers(generics.ListAPIView):
+    queryset = Asset.objects.all()
+    serializer_class = AssetSerializer
+    def get_queryset(self):
+        self.queryset = self.queryset.filter(change_amount__lt=0).order_by('change_proportion')
+        return self.queryset[:20]
