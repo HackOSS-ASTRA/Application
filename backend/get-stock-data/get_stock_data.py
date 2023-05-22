@@ -15,7 +15,7 @@ user = {
 token = requests.post(url=login_url, data=user).json()['key']
 headers = {'Authorization': f'Token {token}'}
 
-all_tickers = pd.read_csv('test/api-queries/essential_tickers.csv').drop(columns=['Unnamed: 0']).sort_values('Symbol').reset_index(drop=True).to_dict(orient='index')
+all_tickers = pd.read_csv('.\essential_tickers.csv').drop(columns=['Unnamed: 0']).sort_values('Symbol').reset_index(drop=True).to_dict(orient='index')
 end = dt.date.today()
 start = end - dt.timedelta(days=(365 * 3))
 
