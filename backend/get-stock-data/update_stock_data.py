@@ -22,7 +22,7 @@ def getVar(data, target):
         return None
 
 while True:
-    end_date = dt.date.today() - dt.timedelta(2)
+    end_date = dt.date.today()
     start_date = end_date - dt.timedelta(1)
     print(start_date)
     response = requests.get(url=asset_details_url, headers=headers).json()
