@@ -9,8 +9,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         read_only_fields = ['date_joined']
 
 class UserSerializer(serializers.ModelSerializer):
-    profile = ProfileSerializer(read_only=True, many=False)
+    mobile_number = serializers.CharField(source='profile.mobile_number')
+    date_of_birth = serializers.DateField(source='profile.date_of_birth')
+    date_joined = serializers.DateField(source='profile.date_joined')
     class Meta:
         model = User
-        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'profile']
+        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'mobile_number', 'date_of_birth', 'date_joined']
         read_only_fields = ['id', 'username']

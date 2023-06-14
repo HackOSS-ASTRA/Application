@@ -1,15 +1,23 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from django.contrib.auth.models import User
 from user_account.serializers import UserSerializer, ProfileSerializer
 
-class AccountDetailsView(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    def get_queryset(self):
-        user_id = self.request.user.id
-        self.queryset = self.queryset.filter(id=user_id)
-        return self.queryset
+class AccountDetailsView(APIView):
+    def get(self, request, format=None):
+        user = self.request.user
+        profile = self.request.user.profile
+        user_details = {
+            'id': user.id,
+            'username': user.username,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'mobile_number': profile.mobile_number,
+            'date_of_birth': profile.date_of_birth,
+            'date_joined': profile.date_joined,
+        }
+        return Response(user_details)
 
 class AccountUpdateView(generics.CreateAPIView):
     queryset = User.objects.all()
