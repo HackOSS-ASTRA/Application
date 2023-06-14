@@ -11,7 +11,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     mobile_number = serializers.CharField(source='profile.mobile_number')
     date_of_birth = serializers.DateField(source='profile.date_of_birth')
-    date_joined = serializers.DateField(source='profile.date_joined')
+    date_joined = serializers.DateField(source='profile.date_joined', read_only=True)
     class Meta:
         model = User
         fields = ['id', 'username', 'first_name', 'last_name', 'email', 'mobile_number', 'date_of_birth', 'date_joined']
