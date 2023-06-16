@@ -13,6 +13,7 @@ class AccountDetailsView(APIView):
             'username': user.username,
             'first_name': user.first_name,
             'last_name': user.last_name,
+            'email': user.email,
             'mobile_number': profile.mobile_number,
             'date_of_birth': profile.date_of_birth,
             'date_joined': profile.date_joined,
