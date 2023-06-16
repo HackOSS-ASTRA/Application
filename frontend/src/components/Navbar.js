@@ -1,25 +1,8 @@
-import {
-  AppBar,
-  IconButton,
-  Typography,
-  Avatar,
-  Toolbar,
-  Menu,
-  MenuItem,
-} from "@mui/material";
+import { AppBar, Typography, Toolbar } from "@mui/material";
 import { Box } from "@mui/system";
-import Link from "next/link";
-import { useState } from "react";
+import AuthButton from "@/components/AuthButton";
 
 const Navbar = () => {
-  const [anchorElement, setAnchorElement] = useState(null);
-  const open = Boolean(anchorElement);
-  const handleClick = (event) => {
-    setAnchorElement(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorElement(null);
-  };
   return (
     <AppBar position="static">
       <Toolbar>
@@ -42,27 +25,8 @@ const Navbar = () => {
             ASTRA
           </Typography>
         </Box>
-        <IconButton onClick={handleClick}>
-          <Avatar src="/static/images/avatar/2.jpg" />
-        </IconButton>
+        <AuthButton></AuthButton>
       </Toolbar>
-      <Menu
-        anchorEl={anchorElement}
-        open={open}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-      >
-        <MenuItem onClick={handleClose} component={Link} href="/login">
-          Login
-        </MenuItem>
-      </Menu>
     </AppBar>
   );
 };

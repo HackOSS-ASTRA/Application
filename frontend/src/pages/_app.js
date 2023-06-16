@@ -8,6 +8,7 @@ import theme from "../theme";
 import createEmotionCache from "../createEmotionCache";
 import Navbar from "@/components/Navbar";
 import { LocalizationProvider } from "@mui/x-date-pickers";
+import { SessionProvider } from "next-auth/react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import axios from "axios";
 import { StyledEngineProvider } from "@mui/material/styles";
@@ -15,7 +16,12 @@ import { StyledEngineProvider } from "@mui/material/styles";
 const clientSideEmotionCache = createEmotionCache();
 
 export default function MyApp(props) {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+  const {
+    Component,
+    session,
+    emotionCache = clientSideEmotionCache,
+    pageProps,
+  } = props;
   axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
   return (
     <CacheProvider value={emotionCache}>
@@ -29,12 +35,14 @@ export default function MyApp(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
-          <Navbar />
-          <Component {...pageProps} />
-        </ThemeProvider>
+        <SessionProvider session={session}>
+          <ThemeProvider theme={theme}>
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
+            <Navbar />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </SessionProvider>
       </LocalizationProvider>
     </CacheProvider>
   );

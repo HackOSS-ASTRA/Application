@@ -49,32 +49,11 @@ export async function getServerSideProps() {
 }
 
 export default function Home({ stocks }) {
-  useEffect(() => {
-    axios
-      .get("/api/user_account/details")
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, []);
   const [open, setOpen] = useState(false);
   const [stockname, setStockname] = useState("");
   const [price, setPrice] = useState(0);
   const [company, setCompany] = useState("");
   const handleClose = () => setOpen(false);
-
-  const gridStyle = {
-    backgroundColor: "#121212",
-    height: "50vh",
-    padding: "10px",
-    minWidth: "200px",
-  };
-  const paperStyle = {
-    width: "100%",
-    height: "100%",
-  };
 
   const modalStyle = {
     position: "absolute",
@@ -97,7 +76,7 @@ export default function Home({ stocks }) {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={styles.modalStyle}>
+          <Box sx={modalStyle}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               {stockname}
             </Typography>
@@ -108,13 +87,13 @@ export default function Home({ stocks }) {
           </Box>
         </Modal>
         <Grid container sx={{ marginTop: "20px", alignItems: "center" }}>
-          <Grid item xs={2} sx={styles.gridStyle}>
-            <Paper sx={styles.paperStyle}>
+          <Grid item xs={2} className={styles.gridStyle}>
+            <Paper className={styles.paperStyle}>
               <WatchList></WatchList>
             </Paper>
           </Grid>
-          <Grid item xs sx={styles.gridStyle}>
-            <TableContainer component={Paper} sx={styles.paperStyle}>
+          <Grid item xs className={styles.gridStyle}>
+            <TableContainer component={Paper} className={styles.paperStyle}>
               <StockTable
                 stocks={stocks}
                 setStockname={setStockname}

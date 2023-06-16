@@ -59,7 +59,7 @@ export default NextAuth({
           },
         });
         const result = await response.json();
-        console.log(result);
+        token.name = result.username;
       }
       return token;
     },
