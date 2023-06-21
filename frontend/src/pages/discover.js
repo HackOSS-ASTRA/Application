@@ -1,7 +1,7 @@
-import Sidebar from "@/components/Sidebar"
+import Sidebar from "@/components/Sidebar";
 
-export default function Discover(){
-  return(
-  <Sidebar></Sidebar>
-  )
+export default function Discover() {
+  return <Sidebar></Sidebar>;
 }
+
+Discover.requireAuth = true;

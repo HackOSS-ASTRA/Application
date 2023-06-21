@@ -3,6 +3,7 @@ import { Menu, MenuItem, Button } from "@mui/material";
 
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const AuthButton = () => {
   const router = useRouter();
@@ -36,6 +37,15 @@ const AuthButton = () => {
             horizontal: "left",
           }}
         >
+          <MenuItem
+            component={Link}
+            href="/account"
+            onClick={() => {
+              setAnchorElement(null);
+            }}
+          >
+            Account Details
+          </MenuItem>
           <MenuItem
             onClick={() => {
               signOut();
