@@ -96,6 +96,7 @@ class AssetHistoryView(generics.ListCreateAPIView):
 class MostTradedView(generics.ListAPIView):
     queryset = Asset.objects.all()
     serializer_class = AssetSerializer
+    permission_classes = (AllowAny, )
     def get_queryset(self):
         self.queryset = self.queryset.order_by('-volume')
         return self.queryset[:20]
@@ -103,6 +104,7 @@ class MostTradedView(generics.ListAPIView):
 class TopRisers(generics.ListAPIView):
     queryset = Asset.objects.all()
     serializer_class = AssetSerializer
+    permission_classes = (AllowAny, )
     def get_queryset(self):
         self.queryset = self.queryset.filter(change_amount__gte=0).order_by('-change_proportion')
         return self.queryset[:20]
@@ -110,6 +112,7 @@ class TopRisers(generics.ListAPIView):
 class TopFallers(generics.ListAPIView):
     queryset = Asset.objects.all()
     serializer_class = AssetSerializer
+    permission_classes = (AllowAny, )
     def get_queryset(self):
         self.queryset = self.queryset.filter(change_amount__lt=0).order_by('change_proportion')
         return self.queryset[:20]
