@@ -28,7 +28,6 @@ import {
 } from "@mui/icons-material";
 
 import { useState, useEffect } from "react";
-import axios from "axios";
 export async function getServerSideProps() {
   function createData(name, company, change, sellprice, buyprice, low, high) {
     return { name, company, change, sellprice, buyprice, low, high };

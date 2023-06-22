@@ -12,6 +12,7 @@ import { SessionProvider } from "next-auth/react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import axios from "axios";
 import { StyledEngineProvider } from "@mui/material/styles";
+import AuthGuard from "@/components/AuthGuard";
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
@@ -40,7 +41,13 @@ export default function MyApp(props) {
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
             <Navbar />
-            <Component {...pageProps} />
+            {Component.requireAuth ? (
+              <AuthGuard>
+                <Component {...pageProps} />
+              </AuthGuard>
+            ) : (
+              <Component {...pageProps} />
+            )}
           </ThemeProvider>
         </SessionProvider>
       </LocalizationProvider>
