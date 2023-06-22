@@ -23,7 +23,7 @@ class AccountDetailsView(APIView):
 class AccountUpdateView(generics.CreateAPIView):
     queryset = User.objects.all()
     def post(self, request, *args, **kwargs):
-        data = self.request.POST
+        data = request.data
         user_serializer = UserSerializer(instance=self.request.user, data=data)
         profile_serializer = ProfileSerializer(instance=self.request.user.profile, data=data)
         if user_serializer.is_valid(raise_exception=True) and profile_serializer.is_valid(raise_exception=True):
