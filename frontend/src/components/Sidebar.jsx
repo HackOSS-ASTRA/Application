@@ -16,13 +16,15 @@ import { useRouter } from "next/router";
 
 function Sidebar() {
   const router = useRouter();
-  const drawerWidth = 350;
+  const drawerWidth = 270;
   const highlight = new Array(2).fill({});
-  if (router.pathname == "/") highlight[0] = { backgroundColor: "#1E1E1E" };
+  const highlightColor = "#FE3E65";
+  if (router.pathname == "/")
+    highlight[0] = { backgroundColor: highlightColor };
   if (router.pathname == "/discover")
-    highlight[1] = { backgroundColor: "#1E1E1E" };
+    highlight[1] = { backgroundColor: highlightColor };
   if (router.pathname == "/portfolio")
-    highlight[2] = { backgroundColor: "#1E1E1E" };
+    highlight[2] = { backgroundColor: highlightColor };
   return (
     <div>
       <Toolbar>
@@ -38,24 +40,8 @@ function Sidebar() {
           variant="permanent"
           anchor="left"
         >
+          <Toolbar></Toolbar>
           <List>
-            <ListItem>
-              <Avatar style={{ margin: "10px" }} alt="none" src="/logo.jpeg" />
-              <Typography
-                variant="h5"
-                sx={{
-                  mr: 2,
-                  display: "inline",
-                  fontFamily: "monospace",
-                  fontWeight: 700,
-                  letterSpacing: "rem",
-                  color: "inherit",
-                  textDecoration: "none",
-                }}
-              >
-                ASTRA
-              </Typography>
-            </ListItem>
             <ListItem sx={highlight[0]}>
               <ListItemButton href="/">
                 <ListItemIcon>

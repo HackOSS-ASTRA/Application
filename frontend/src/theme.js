@@ -12,22 +12,102 @@ export const roboto = Roboto({
 // Create a theme instance.
 const theme = createTheme({
   palette: {
-    mode: "dark",
     primary: {
-      main: "##545454",
+      main: "#20232C",
     },
     secondary: {
-      main: "#525252",
+      main: "#388EE3",
     },
     error: {
       main: red.A400,
     },
     background: {
-      default: "#585858",
+      default: "#1A1D26",
+      paper: "#20232C",
+    },
+    text: {
+      primary: "#FFFFFF",
+      secondary: "#6b778c",
     },
   },
   typography: {
     fontFamily: roboto.style.fontFamily,
+  },
+  components: {
+    MuiList: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#20232C",
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          "& label": {
+            color: "#FFFFFF",
+          },
+          "& label.Mui-focused": {
+            color: "#FFFFFF",
+          },
+          "& .MuiInput-underline:after": {
+            borderBottomColor: "#FFFFFF",
+          },
+          "& .MuiOutlinedInput-root": {
+            "& fieldset": {
+              borderColor: "#FFFFFF",
+            },
+            "&:hover fieldset": {
+              borderColor: "#FFFFFF",
+              borderWidth: "0.15rem",
+            },
+            "&.Mui-focused fieldset": {
+              borderColor: "#FFFFFF",
+            },
+          },
+        },
+      },
+    },
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          borderColor: "white",
+        },
+      },
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: "#20232C",
+        },
+      },
+    },
+    MuiTableRow: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          "&.MuiTableRow-root:hover": {
+            backgroundColor: theme.palette.secondary.light,
+          },
+        }),
+      },
+    },
+    MuiListItem: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          "&.MuiListItem-root:hover": {
+            backgroundColor: theme.palette.secondary.light,
+          },
+        }),
+      },
+    },
+
+    MuiTableCell: {
+      styleOverrides: {
+        head: {
+          backgroundColor: "#1C1C24",
+        },
+      },
+    },
   },
 });
 
