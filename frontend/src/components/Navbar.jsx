@@ -4,7 +4,10 @@ import AuthButton from "@/components/AuthButton";
 
 const Navbar = () => {
   return (
-    <AppBar position="static">
+    <AppBar
+      position="fixed"
+      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    >
       <Toolbar>
         <Box display="flex" flexGrow={1}>
           <Typography
