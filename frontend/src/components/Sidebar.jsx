@@ -13,18 +13,18 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import { BusinessCenter } from "@mui/icons-material";
 import { useRouter } from "next/router";
+import { useTheme } from "@emotion/react";
 
 function Sidebar() {
+  const theme = useTheme();
   const router = useRouter();
   const drawerWidth = 270;
   const highlight = new Array(2).fill({});
-  const highlightColor = "#FE3E65";
-  if (router.pathname == "/")
-    highlight[0] = { backgroundColor: highlightColor };
-  if (router.pathname == "/discover")
-    highlight[1] = { backgroundColor: highlightColor };
-  if (router.pathname == "/portfolio")
-    highlight[2] = { backgroundColor: highlightColor };
+  const highlightColor = theme.palette.highlight;
+  const path = router.pathname.split("/")[1];
+  if (path == "trading") highlight[0] = { backgroundColor: highlightColor };
+  if (path == "discover") highlight[1] = { backgroundColor: highlightColor };
+  if (path == "portfolio") highlight[2] = { backgroundColor: highlightColor };
   return (
     <div>
       <Toolbar>

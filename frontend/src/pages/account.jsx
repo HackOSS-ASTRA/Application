@@ -18,7 +18,7 @@ import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  const url = process.env.NEXT_PUBLIC_SERVER_URL + "api/user_account/details";
+  const url = process.env.NEXT_PUBLIC_SERVER_URL + "api/user_account/details/";
   const response = await fetch(url, {
     method: "GET",
     headers: {

@@ -5,9 +5,14 @@ import {
   TableHead,
   Table,
   Button,
-} from "@mui/material"
+  IconButton,
+} from "@mui/material";
 
 import styled from "@emotion/styled";
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import { useTheme } from "@emotion/react";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 const StyledTableRow = styled(TableRow)`
   &:nth-of-type(odd) {
@@ -21,10 +26,63 @@ const StyledTableRow = styled(TableRow)`
   }
 `;
 
-
 export default function StockTable(props) {
-  const { setStockname, setCompany, setPrice, setOpen, stocks, setStockData } =
-    props;
+  const { data: session } = useSession();
+  const theme = useTheme();
+  const {
+    setStockname,
+    setCompany,
+    setPrice,
+    setOpen,
+    stocks,
+    setStockData,
+    favourites,
+  } = props;
+  const [tableStocks, setTableStocks] = useState(stocks);
+  useEffect(() => {
+    stocks.map((stock) => {
+      if (favourites.some((e) => e.asset === stock.id)) {
+        stock["favourite"] = true;
+      } else stock["favourite"] = false;
+    });
+    setTableStocks(stocks);
+  }, [favourites, stocks]);
+
+  const handleFavourite = async (id) => {
+    const url = process.env.NEXT_PUBLIC_SERVER_URL + "api/watchlist/get/";
+    const payload = { asset: id };
+    await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${session.accessToken}`,
+      },
+    });
+
+    var stock = stocks.filter((obj) => {
+      return obj.id === id;
+    });
+    stock[0]["favourite"] = true;
+    setTableStocks(stocks);
+  };
+
+  const handleUnfavourite = async (id) => {
+    const url =
+      process.env.NEXT_PUBLIC_SERVER_URL + `api/watchlist/delete/${id}/`;
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${session.accessToken}`,
+      },
+    });
+
+    var stock = stocks.filter((obj) => {
+      return obj.id === id;
+    });
+    stock[0]["favourite"] = false;
+    setTableStocks(stocks);
+  };
 
   const onRowClick = async (asset) => {
     const url =
@@ -51,6 +109,31 @@ export default function StockTable(props) {
     setStockData(formattedData);
   };
 
+  const FavoriteButton = ({ id, favourite }) => {
+    if (favourite) {
+      return (
+        <IconButton
+          onClick={() => {
+            handleUnfavourite(id);
+          }}
+        >
+          <Favorite sx={{ color: theme.palette.highlight }}></Favorite>
+        </IconButton>
+      );
+    }
+    return (
+      <IconButton
+        onClick={() => {
+          handleFavourite(id);
+        }}
+      >
+        <FavoriteBorder
+          sx={{ color: theme.palette.highlight }}
+        ></FavoriteBorder>
+      </IconButton>
+    );
+  };
+
   const handleOpen = (name, company, price) => {
     setStockname(name);
     setCompany(company);
@@ -58,7 +141,7 @@ export default function StockTable(props) {
     setOpen(true);
   };
   return (
-    <Table stickyHeader>
+    <Table style={{ tableLayout: "fixed" }} stickyHeader>
       <TableHead>
         <TableRow>
           <TableCell align="center">Stock</TableCell>
@@ -67,10 +150,11 @@ export default function StockTable(props) {
           <TableCell align="center">Buy</TableCell>
           <TableCell align="center">Low</TableCell>
           <TableCell align="center">High</TableCell>
+          <TableCell align="center">Favourite</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {stocks.map((stock) => (
+        {tableStocks.map((stock) => (
           <StyledTableRow
             hover
             onClick={async () => {
@@ -93,7 +177,7 @@ export default function StockTable(props) {
                 </h4>
               )}
             </TableCell>
-            <TableCell align="center">
+            <TableCell align="right">
               {stock.close_price.toFixed(2)}
               <Button
                 color="error"
@@ -104,16 +188,21 @@ export default function StockTable(props) {
                 Sell
               </Button>
             </TableCell>
-            <TableCell align="center">
+            <TableCell align="right">
               {stock.open_price.toFixed(2)}
               <Button color="success">Buy</Button>
             </TableCell>
             <TableCell align="center">{stock.low_price.toFixed(2)}</TableCell>
             <TableCell align="center">{stock.high_price.toFixed(2)}</TableCell>
+            <TableCell align="center">
+              <FavoriteButton
+                id={stock.id}
+                favourite={stock.favourite}
+              ></FavoriteButton>
+            </TableCell>
           </StyledTableRow>
         ))}
       </TableBody>
     </Table>
   );
 }
-

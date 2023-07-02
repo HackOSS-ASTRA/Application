@@ -1,7 +1,17 @@
-.gridStyle{
+.layoutContainer{
+    minWidth: 1300px;
+    display: flex;
+    flew-grow: 1;
+}
+
+.tableStyle{
     height: 50vh;
     padding: 10px;
     minWidth: 200px;
+}
+
+.chartStyle{
+    height: 30vh;
 }
 
 .paperStyle{
