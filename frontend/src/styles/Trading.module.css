@@ -1,0 +1,21 @@
+.layoutContainer {
+  minwidth: 1300px;
+  display: flex;
+  flew-grow: 1;
+}
+
+.tableStyle {
+  height: 50vh;
+  padding: 10px;
+  minwidth: 200px;
+}
+
+.chartStyle {
+  height: 30vh;
+}
+
+.paperStyle {
+  width: 100%;
+  height: 400px;
+  background-color: #20232c;
+}

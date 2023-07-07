@@ -29,7 +29,7 @@ const AuthButton = () => {
           open={open}
           onClose={handleClose}
           anchorOrigin={{
-            vertical: "top",
+            vertical: "bottom",
             horizontal: "left",
           }}
           transformOrigin={{
@@ -45,6 +45,15 @@ const AuthButton = () => {
             }}
           >
             Account Details
+          </MenuItem>
+          <MenuItem
+            component={Link}
+            href="/funds"
+            onClick={() => {
+              setAnchorElement(null);
+            }}
+          >
+            Deposit and Withdrawals
           </MenuItem>
           <MenuItem
             onClick={() => {

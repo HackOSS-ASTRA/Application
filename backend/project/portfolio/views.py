@@ -16,7 +16,7 @@ class DepositView(generics.CreateAPIView):
     queryset = Portfolio.objects.all()
     serializer_class = UserPortfolioSerializer
     def post(self, request, *args, **kwargs):
-        data = self.request.POST
+        data = request.data 
         deposit_serializer = DepositWithdrawSerializer(data=data)
         if deposit_serializer.is_valid(raise_exception=True) and float(data.get('amount')) > 0:
             user = self.request.user
@@ -39,7 +39,7 @@ class WithdrawalView(generics.CreateAPIView):
     queryset = Portfolio.objects.all()
     serializer_class = UserPortfolioSerializer
     def post(self, request, *args, **kwargs):
-        data = self.request.POST
+        data = request.data
         deposit_serializer = DepositWithdrawSerializer(data=data)
         user = self.request.user
         portfolio = self.request.user.portfolio
@@ -64,7 +64,7 @@ class WithdrawalView(generics.CreateAPIView):
 class BuyAssetView(generics.CreateAPIView):
     serializer_class = TransactionItemSerializer
     def post(self, request, *args, **kwargs):
-        data = self.request.POST
+        data = request.data
         buy_serializer = BuySellSerializer(data=data)
         if buy_serializer.is_valid(raise_exception=True):
             user = self.request.user
@@ -115,7 +115,7 @@ class BuyAssetView(generics.CreateAPIView):
 class SellAssetView(generics.CreateAPIView):
     serializer_class = TransactionItemSerializer
     def post(self, request, *args, **kwargs):
-        data = self.request.POST
+        data = request.data 
         sell_serializer = BuySellSerializer(data=data)
         if sell_serializer.is_valid(raise_exception=True):
             asset_id = data.get('asset')

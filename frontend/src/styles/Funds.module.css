@@ -1,6 +1,7 @@
 .paperStyle {
   padding: 20;
   width: 1000px;
+  height: 700px;
   margin: 50px auto;
   position: relative;
   border-radius: 10px;
@@ -8,11 +9,4 @@
 
 .paperStyle p {
   font-size: 16px;
-}
-
-.editButton {
-  color: white;
-  position: absolute;
-  top: 3px;
-  right: 0px;
 }
