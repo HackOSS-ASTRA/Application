@@ -73,10 +73,11 @@ export default function Portfolio({ portfolio }) {
         <Sidebar></Sidebar>;
         <Grid container sx={{ marginTop: "20px", alignItems: "center" }}>
           <Grid item xs={9} className={styles.gridStyle}>
+            <Toolbar></Toolbar>
             <Typography
               variant="h5"
               sx={{
-                mr: 2,
+                m: 2,
                 display: "flex",
                 fontFamily: "monospace",
                 fontWeight: 700,
@@ -87,15 +88,14 @@ export default function Portfolio({ portfolio }) {
             >
               Securities Owned
             </Typography>
-            <Toolbar></Toolbar>
             <SecuritiesTable securities={portfolio.portfolio_item} />
           </Grid>
           <Grid item xs={9} className={styles.gridStyle}>
             <Typography
               variant="h5"
               sx={{
-                paddingTop: "20px",
-                mr: 2,
+                paddingTop: "30px",
+                m: 2,
                 display: "flex",
                 fontFamily: "monospace",
                 fontWeight: 700,

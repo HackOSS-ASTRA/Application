@@ -3,3 +3,7 @@
   display: flex;
   flew-grow: 1;
 }
+
+.mostTradedTable {
+  height: 30vh;
+}
