@@ -29,9 +29,10 @@ const BuySellModal = ({ open, setOpen, modalData }) => {
   const [quantity, setQuantity] = useState("");
   const [error, setError] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [alertSerivirty, setAlertSevirity] = useState("sucess");
+  const [alertSerivirty, setAlertSevirity] = useState("success");
   const [alertMessage, setAlertMessage] = useState("");
   const handleClose = () => {
+    setError(false);
     setQuantity("");
     setTotalCost(0);
     setOpen(false);
@@ -93,7 +94,7 @@ const BuySellModal = ({ open, setOpen, modalData }) => {
   return (
     <>
       <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "middle" }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={showAlert}
         autoHideDuration={6000}
         onClose={handleAlertClose}

@@ -35,9 +35,20 @@ export async function getServerSideProps(context) {
     headers: { Authorization: `Token ${session.accessToken}` },
   });
   const { results } = await res.json();
+  const portfolio = results[0];
+  portfolio.transaction_item.map((transaction) => {
+    transaction.transaction_date = transaction.transaction_date.slice(0, 10);
+    if (transaction.transaction_type == "Buy")
+      transaction.description = `Bought ${transaction.quantity} x of ${transaction.asset_id}`;
+    else if (transaction.transaction_type == "Sell")
+      transaction.description = `Sold ${transaction.quantity} x of ${transaction.asset_id}`;
+    else {
+      transaction.description = "NA";
+    }
+  });
   return {
     props: {
-      portfolio: results[0],
+      portfolio: portfolio,
     },
   };
 }
@@ -45,19 +56,6 @@ export async function getServerSideProps(context) {
 export default function Funds({ portfolio }) {
   const { data: session } = useSession();
   const router = useRouter();
-  useEffect(() => {
-    portfolio.transaction_item.map((transaction) => {
-      transaction.transaction_date = transaction.transaction_date.slice(0, 10);
-      if (transaction.transaction_type == "Buy")
-        transaction.description = `Bought ${transaction.quantity} x of ${transaction.asset_id}`;
-      else if (transaction.transaction_type == "Sell")
-        transaction.description = `Sold ${transaction.quantity} x of ${transaction.asset_id}`;
-      else {
-        transaction.description = "NA";
-      }
-    });
-    console.log(portfolio);
-  }, [portfolio]);
   const [form, setForm] = useState({
     deposit: "",
     withdraw: "",
