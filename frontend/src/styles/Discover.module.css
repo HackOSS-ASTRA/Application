@@ -1,0 +1,5 @@
+.layoutContainer {
+  minwidth: 1300px;
+  display: flex;
+  flew-grow: 1;
+}

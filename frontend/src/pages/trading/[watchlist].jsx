@@ -56,10 +56,7 @@ export async function getServerSideProps(context) {
 }
 
 export default function Trading({ stocks, favourites, portfolio }) {
-  const [alertMessage, setAlertMessage] = useState("");
-  const [alertSeverity, setAlertSeverity] = useState("success");
   const [open, setOpen] = useState(false);
-  const [showAlert, setShowAlert] = useState(true);
   const [modalData, setModalData] = useState({});
   const [stockData, setStockData] = useState({
     x: [],

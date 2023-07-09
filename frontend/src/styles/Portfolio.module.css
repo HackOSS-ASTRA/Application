@@ -1,0 +1,21 @@
+.layoutContainer {
+  minwidth: 1300px;
+  display: flex;
+  flew-grow: 1;
+}
+
+.securitiesTableStyle {
+  height: 30vh;
+}
+
+.transactionTableStyle {
+  height: 30vh;
+}
+
+.chartStyle {
+  height: 30vh;
+}
+
+.gridStyle {
+  height: 40vh;
+}
