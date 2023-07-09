@@ -48,7 +48,7 @@ export default function Register() {
       headers: { "Content-Type": "application/json" },
     });
 
-    if (res.ok) push("/");
+    if (res.ok) push("/login");
     else {
       let data = await res.json();
       const error = {

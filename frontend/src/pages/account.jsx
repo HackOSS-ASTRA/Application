@@ -18,18 +18,18 @@ import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  const url = process.env.NEXT_PUBLIC_SERVER_URL + "api/user_account/details";
-  const response = await fetch(url, {
+  const url = process.env.NEXT_PUBLIC_SERVER_URL + "api/user_account/details/";
+  const res = await fetch(url, {
     method: "GET",
     headers: {
       "Context-Type": "application/json",
       Authorization: `Token ${session.accessToken}`,
     },
   });
-  const result = await response.json();
+  const resJson = await res.json();
   return {
     props: {
-      data: result,
+      data: resJson,
     },
   };
 }
@@ -62,8 +62,7 @@ const CustomTextField = (props) => {
   );
 };
 
-export default function Account(props) {
-  const { data } = props;
+export default function Account({ data }) {
   const [editMode, setEditMode] = useState(false);
   const [form, setForm] = useState(data);
   const [errors, setErrors] = useState({});
