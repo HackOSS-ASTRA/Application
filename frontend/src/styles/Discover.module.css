@@ -1,0 +1,9 @@
+.layoutContainer {
+  minwidth: 1300px;
+  display: flex;
+  flew-grow: 1;
+}
+
+.mostTradedTable {
+  height: 30vh;
+}
