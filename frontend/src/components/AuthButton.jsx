@@ -1,6 +1,7 @@
 import { useSession, signIn, signOut } from "next-auth/react";
-import { Menu, MenuItem, Button } from "@mui/material";
-
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Button from "@mui/material/Button";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -18,6 +19,9 @@ const AuthButton = () => {
 
   const { data: session, status } = useSession();
   if (router.pathname == "/login") return <></>;
+  if (status == "loading") {
+    return <h4>Loading...</h4>;
+  }
   if (status == "authenticated") {
     return (
       <>

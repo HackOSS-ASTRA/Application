@@ -1,4 +1,9 @@
-import { Box, Grid, Paper, Avatar, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+
 import Link from "next/link";
 
 export default function Custom404() {
@@ -13,8 +18,19 @@ export default function Custom404() {
   return (
     <Paper elevation={3} style={paperStyle}>
       <Grid align="center">
-        <Box sx={{display:"flex", alignItems:"center", justifyContent:"center", gap:"10px"}} >
-          <Avatar sx={{ width: 50, height: 50, display: "inline-block" }} alt="none" src="/logo.jpeg" />
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "10px",
+          }}
+        >
+          <Avatar
+            sx={{ width: 50, height: 50, display: "inline-block" }}
+            alt="none"
+            src="/logo.jpeg"
+          />
           <Typography
             variant="h3"
             sx={{

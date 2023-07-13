@@ -1,6 +1,11 @@
 import styles from "../../styles/Trading.module.css";
 import Sidebar from "@/components/Sidebar";
-import { Box, Grid, Paper, TableContainer, Toolbar } from "@mui/material";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import TableContainer from "@mui/material/TableContainer";
+import Toolbar from "@mui/material/Toolbar";
+
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import WatchList from "@/components/WatchList";
@@ -34,7 +39,7 @@ export async function getServerSideProps(context) {
       },
     });
     let resJson = await res.json();
-    props["favourites"] = resJson.results;
+    if (res.ok) props["favourites"] = resJson.results;
 
     url = process.env.NEXT_PUBLIC_SERVER_URL + `api/portfolio/get/`;
     res = await fetch(url, {
@@ -44,7 +49,7 @@ export async function getServerSideProps(context) {
       },
     });
     resJson = await res.json();
-    props["portfolio"] = resJson.results[0].portfolio_item;
+    if (res.ok) props["portfolio"] = resJson.results[0].portfolio_item;
   }
 
   if (watchlist == "favourites") props["stocks"] = props["favourites"];

@@ -1,5 +1,5 @@
-const { default: styled } = require("@emotion/styled");
-const { TableRow } = require("@mui/material");
+import styled from "@emotion/styled";
+import TableRow from "@mui/material/TableRow";
 
 const StyledTableRow = styled(TableRow)`
   &:nth-of-type(odd) {
