@@ -1,23 +1,27 @@
 import Sidebar from "@/components/Sidebar";
-import {
-  Grid,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Toolbar,
-  Typography,
-} from "@mui/material";
-import { Box } from "@mui/system";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import Typography from "@mui/material/Typography";
+import TableRow from "@mui/material/TableRow";
+import Toolbar from "@mui/material/Toolbar";
+import Box from "@mui/system/Box";
 import { getSession } from "next-auth/react";
 import styles from "../styles/Portfolio.module.css";
 import StyledTableRow from "@/components/StyledTableRow";
-import { useEffect } from "react";
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
+  if (!session) {
+    return {
+      props: {
+        portfolio: [],
+      },
+    };
+  }
 
   const url = process.env.NEXT_PUBLIC_SERVER_URL + `api/portfolio/get/`;
   const res = await fetch(url, {
@@ -28,6 +32,14 @@ export async function getServerSideProps(context) {
   });
   const resJson = await res.json();
   const portfolio = resJson.results[0];
+
+  return {
+    props: {
+      portfolio: portfolio,
+    },
+  };
+}
+export default function Portfolio({ portfolio }) {
   portfolio.portfolio_item.map((stock) => {
     stock.change_amount_display = `$${parseFloat(stock.change_amount).toFixed(
       2
@@ -60,13 +72,11 @@ export async function getServerSideProps(context) {
   ) {
     return obj.asset !== null;
   });
-  return {
-    props: {
-      portfolio: portfolio,
-    },
-  };
-}
-export default function Portfolio({ portfolio }) {
+  portfolio.transaction_item.map((transaction) => {
+    let date = new Date(Date.parse(transaction.transaction_date));
+    transaction.date = date.toLocaleString("en-GB");
+  });
+  console.log(portfolio);
   return (
     <>
       <Box className={styles.layoutContainer}>
@@ -173,6 +183,7 @@ const TransactionTable = ({ transactions }) => {
             <TableCell align="center">Cost Basis</TableCell>
             <TableCell align="center">Shares</TableCell>
             <TableCell align="center">Date Bought</TableCell>
+            <TableCell align="center">Time Bought</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -184,8 +195,9 @@ const TransactionTable = ({ transactions }) => {
               </TableCell>
               <TableCell align="center">{transaction.quantity}</TableCell>
               <TableCell align="center">
-                {transaction.transaction_date.slice(0, 10)}
+                {transaction.date.slice(0, 10)}
               </TableCell>
+              <TableCell align="center">{transaction.date.slice(12)}</TableCell>
             </StyledTableRow>
           ))}
         </TableBody>
@@ -193,3 +205,5 @@ const TransactionTable = ({ transactions }) => {
     </Paper>
   );
 };
+
+Portfolio.requireAuth = true;

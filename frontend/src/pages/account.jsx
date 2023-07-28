@@ -1,15 +1,13 @@
 import styles from "../styles/Account.module.css";
 import Sidebar from "@/components/Sidebar";
-import {
-  Paper,
-  Grid,
-  Button,
-  TextField,
-  FormControl,
-  Stack,
-  Toolbar,
-} from "@mui/material";
-import { Box } from "@mui/system";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import FormControl from "@mui/material/FormControl";
+import Stack from "@mui/material/Stack";
+import Toolbar from "@mui/material/Toolbar";
+import Box from "@mui/system/Box";
 import { getSession, useSession } from "next-auth/react";
 import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
@@ -228,4 +226,4 @@ export default function Account({ data }) {
   );
 }
 
-Account.useAuth = true;
+Account.requireAuth = true;

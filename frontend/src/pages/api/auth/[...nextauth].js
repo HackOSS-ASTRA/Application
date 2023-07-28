@@ -18,6 +18,7 @@ export default NextAuth({
 
         const res = await fetch(url, {
           method: "POST",
+          mode: "cors",
           body: JSON.stringify(payload),
           headers: { "Content-Type": "application/json" },
         });
@@ -53,6 +54,7 @@ export default NextAuth({
           process.env.NEXT_PUBLIC_SERVER_URL + "api/user_account/details/";
         const response = await fetch(url, {
           method: "GET",
+          mode: "cors",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Token ${token.accessToken}`,

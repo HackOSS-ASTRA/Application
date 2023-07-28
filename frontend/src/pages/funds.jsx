@@ -1,21 +1,20 @@
 import Sidebar from "@/components/Sidebar";
-import {
-  Button,
-  FormControl,
-  Grid,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
-  Toolbar,
-} from "@mui/material";
-import { Box } from "@mui/system";
+import Button from "@mui/material/Button";
+import FormControl from "@mui/material/FormControl";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TextField from "@mui/material/TextField";
+import Toolbar from "@mui/material/Toolbar";
+
+import Box from "@mui/system/Box";
 import { getSession, useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "../styles/Funds.module.css";
 import StyledTableRow from "@/components/StyledTableRow";
 import { useRouter } from "next/router";
@@ -35,7 +34,14 @@ export async function getServerSideProps(context) {
     headers: { Authorization: `Token ${session.accessToken}` },
   });
   const { results } = await res.json();
-  const portfolio = results[0];
+  return {
+    props: {
+      portfolio: results[0],
+    },
+  };
+}
+
+export default function Funds({ portfolio }) {
   portfolio.transaction_item.map((transaction) => {
     transaction.transaction_date = transaction.transaction_date.slice(0, 10);
     if (transaction.transaction_type == "Buy")
@@ -46,14 +52,6 @@ export async function getServerSideProps(context) {
       transaction.description = "NA";
     }
   });
-  return {
-    props: {
-      portfolio: portfolio,
-    },
-  };
-}
-
-export default function Funds({ portfolio }) {
   const { data: session } = useSession();
   const router = useRouter();
   const [form, setForm] = useState({

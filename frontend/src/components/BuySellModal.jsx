@@ -1,13 +1,12 @@
-import {
-  Modal,
-  Typography,
-  Box,
-  TextField,
-  FormControl,
-  Button,
-  Snackbar,
-  Alert,
-} from "@mui/material";
+import Modal from "@mui/material/Modal";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import FormControl from "@mui/material/FormControl";
+import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 

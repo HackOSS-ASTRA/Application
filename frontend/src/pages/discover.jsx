@@ -1,18 +1,15 @@
 import Sidebar from "@/components/Sidebar";
 import StyledTableRow from "@/components/StyledTableRow";
-import {
-  Grid,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Toolbar,
-  Typography,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import { getSession } from "next-auth/react";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/system/Box";
 import styles from "../styles/Discover.module.css";
 
 export async function getServerSideProps(context) {

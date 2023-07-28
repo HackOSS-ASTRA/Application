@@ -7,13 +7,9 @@ import { CacheProvider } from "@emotion/react";
 import theme from "../theme";
 import createEmotionCache from "../createEmotionCache";
 import Navbar from "@/components/Navbar";
-import { LocalizationProvider } from "@mui/x-date-pickers";
 import { SessionProvider } from "next-auth/react";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import axios from "axios";
-import { StyledEngineProvider } from "@mui/material/styles";
 import AuthGuard from "@/components/AuthGuard";
-// Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
 export default function MyApp(props) {
@@ -35,22 +31,20 @@ export default function MyApp(props) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <SessionProvider session={session}>
-          <ThemeProvider theme={theme}>
-            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-            <CssBaseline />
-            <Navbar />
-            {Component.requireAuth ? (
-              <AuthGuard>
-                <Component {...pageProps} />
-              </AuthGuard>
-            ) : (
+
+      <SessionProvider session={session}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Navbar />
+          {Component.requireAuth ? (
+            <AuthGuard>
               <Component {...pageProps} />
-            )}
-          </ThemeProvider>
-        </SessionProvider>
-      </LocalizationProvider>
+            </AuthGuard>
+          ) : (
+            <Component {...pageProps} />
+          )}
+        </ThemeProvider>
+      </SessionProvider>
     </CacheProvider>
   );
 }

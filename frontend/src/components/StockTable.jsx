@@ -1,14 +1,12 @@
-import {
-  TableRow,
-  TableBody,
-  TableCell,
-  TableHead,
-  Table,
-  Button,
-  IconButton,
-} from "@mui/material";
-
-import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import TableRow from "@mui/material/TableRow";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import Table from "@mui/material/Table";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Favorite from "@mui/icons-material/Favorite";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import { useTheme } from "@emotion/react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";

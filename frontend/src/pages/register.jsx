@@ -1,14 +1,12 @@
 import styles from "../styles/Register.module.css";
-import {
-  Typography,
-  Box,
-  Avatar,
-  Paper,
-  Grid,
-  FormControl,
-  Button,
-  TextField,
-} from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import FormControl from "@mui/material/FormControl";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 import { useState, useEffect } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -16,8 +14,10 @@ import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 export default function Register() {
+  const { data: session, status } = useSession();
   const { push } = useRouter();
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({
@@ -38,6 +38,11 @@ export default function Register() {
       });
   };
 
+  useEffect(() => {
+    if (status == "authenticated") {
+      push("/trading/most_traded");
+    }
+  }, [status, push]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = process.env.NEXT_PUBLIC_SERVER_URL + "api/auth/register/";

@@ -1,17 +1,14 @@
-import {
-  Avatar,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-  Toolbar,
-} from "@mui/material";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Toolbar from "@mui/material/Toolbar";
+
 import BarChartIcon from "@mui/icons-material/BarChart";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
-import { BusinessCenter } from "@mui/icons-material";
+import BusinessCenter from "@mui/icons-material/BusinessCenter";
 import { useRouter } from "next/router";
 import { useTheme } from "@emotion/react";
 

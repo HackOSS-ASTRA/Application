@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "analyze": "cross-env ANALYZE=true next build"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -25,5 +26,9 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-plotly.js": "^2.6.0"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^13.4.9",
+    "cross-env": "^7.0.3"
   }
 }

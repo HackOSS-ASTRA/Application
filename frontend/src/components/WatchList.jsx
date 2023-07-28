@@ -1,18 +1,13 @@
-import {
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Divider,
-} from "@mui/material";
-
-import {
-  BusinessCenter,
-  Star,
-  Favorite,
-  TrendingUp,
-  TrendingDown,
-} from "@mui/icons-material";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
+import BusinessCenter from "@mui/icons-material/BusinessCenter";
+import Star from "@mui/icons-material/Star";
+import Favorite from "@mui/icons-material/Favorite";
+import TrendingUp from "@mui/icons-material/TrendingUp";
+import TrendingDown from "@mui/icons-material/TrendingDown";
 import { useRouter } from "next/router";
 import { useTheme } from "@emotion/react";
 import { signIn, useSession } from "next-auth/react";
